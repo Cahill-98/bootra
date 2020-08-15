@@ -6,15 +6,9 @@ Submitted as the final project to CS50's Introduction to Computer Science course
 
 ## Showcase
 
-### Register and Login
-
-*Image*
-
-Keeps user's personal libraries and progress separate within different accounts.
-
 ### Homepage
 
-*Image*
+![Homepage screenshot](/screenshots/home.png)
 
 Lists the user's currently reading books followed by unread books with most recently started / added books at the top.
 
@@ -22,34 +16,40 @@ Lists the user's currently reading books followed by unread books with most rece
 
 ##### On Target
 
-*Image*
+![On target book dashboard](/screenshots/book_on_target.png)
 
 ##### Not on Target
 
-*Image*
+![Not on target book dashboard](/screenshots/book_off_target.png)
 
 ##### No Target Set
 
-*Image*
+![No target book dashboard](/screenshots/book_add_target.png)
 
 Set target date and receive an updating necessary daily page rate.
 Get predicted completion date at your current reading speed for that book
 
 ### Add Books
 
-*Image*
+![Add book screenshot](/screenshots/add_book.png)
 
 Used to add new books to your bookshelf. A checksum is performed on the ISBN number to make sure it is valid. *ISBN is used to get the book cover image.*
 
 ### History
 
-*Image*
+![History screenshot](/screenshots/history.png)
 
 View a log of books read and daily pages read stats starting with the most recently finished books at the top. Get possible completion dates following daily reading time quotas.
 
+### Register and Login
+
+![Login screenshot](/screenshots/login.png)
+
+Keeps user's personal libraries and progress separate within different accounts.
+
 ### Database
 
-*Image*
+![Database diagram](/screenshots/database.png)
 
 Stores main data for each book only once and links to the corresponding users through the *current* and *history* tables. When a book is finished, that user and book id pairing is transferred from *current* into *history*.
 
