@@ -274,15 +274,12 @@ def append_progress(book):
         book (dicts): contains data on the book to calculate progress for
 
     Returns:
-        dict same as input with a new key, value 'progress' pair
-            book['progress'] set to None if book hasn't been started yet
+        NONE
     """
     if book["page"]:
         book["progress"] = round((book["page"] / book["pages"]) * 100)
     else:
         book["progress"] = None
-
-    return book
 
 
 def calculate_date(pages, rate):
@@ -361,13 +358,12 @@ def reformat_date(dictionary, key):
         key (str): key name of date to reformat
 
     Returns:
-        dict same as input whith appropriate date reformated
+        NONE
     """
     if dictionary[key]:
         # Needs to be datetime type to use .strftime
         dictionary[key] = str_to_datetime(dictionary[key])
         dictionary[key] = dictionary[key].strftime("%a %e %b %Y")
-    return dictionary
 
 
 def str_to_datetime(str_date):

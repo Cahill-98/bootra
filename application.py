@@ -64,8 +64,8 @@ def index():
     """
     books = select_from_current()
     for book in books:
-        book = reformat_date(book, "start_date")
-        book = append_progress(book)
+        reformat_date(book, "start_date")
+        append_progress(book)
 
     return render_template("index.html", books=books)
 
@@ -209,7 +209,7 @@ def book():
     else:
         book_id = request.args.get("book_id")
         book = select_from_current(book_id)
-        book = append_progress(book)
+        append_progress(book)
         pages_left = book["pages"] - book["page"]
         today = date.today()
         tomorrow = today + timedelta(days=1)
@@ -219,7 +219,7 @@ def book():
         if book["start_date"]:
             # start_date stored as datetime for calculations
             start_date = str_to_datetime(book["start_date"])
-            book = reformat_date(book, "start_date")
+            reformat_date(book, "start_date")
             rates["current"] = calculate_rate(start_date, today, book["page"])
             dates["current"] = calculate_date(pages_left, rates["current"])
         else:
@@ -228,7 +228,7 @@ def book():
         if book["target_date"]:
             # target_date stored as datetime for calculations
             target_date = str_to_datetime(book["target_date"])
-            book = reformat_date(book, "target_date")
+            reformat_date(book, "target_date")
             # Reset target date to NULL if reached
             if (target_date - today).days < 1:
                 update_current(book_id, "target_date", None)
