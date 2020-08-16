@@ -167,8 +167,8 @@ def add():
     # GET method
     else:
         # Todays date used as min date in add.html
-        today = str(date.today())
-        return render_template("add.html", today=today)
+        tomorrow = str(date.today() + timedelta(days=1))
+        return render_template("add.html", tomorrow=tomorrow)
 
 
 @app.route("/book", methods=["GET", "POST"])
