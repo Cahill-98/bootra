@@ -1,4 +1,3 @@
-
 # Bootra
 
 A simple web app for **boo**k **tra**cking and monitoring your reading progress.
@@ -11,7 +10,7 @@ Submitted as the final project to CS50's Introduction to Computer Science course
 
 ![Homepage screenshot](/screenshots/home.png)
 
-Lists the user's currently reading books and unread books with most recently started at the top.
+Lists the user's currently reading and unread books with most recently started at the top.
 
 ### Book Dashboard
 
