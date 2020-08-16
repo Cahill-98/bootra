@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+
+{% block navs %}
+    <li class="nav-item active">
+      <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/history">History</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/add">Add Book</a>
+    </li>
+{% endblock %}
+
+
+{% block title %}
+    Home
+{% endblock %}
+
+
+{% block main %}
+    <div class="white">
+        <h1>These are your current books.</h1>
+        <p>You can add more using the Add Book page. &nbsp; | &nbsp; Try clicking on a book title for more information.</p>
+    </div>
+    <br>
+    <table class = "table table-striped table-light">
+        <thead class="thead-dark">
+            <th width="30%">Title</th>
+            <th width="20%">Author</th>
+            <th width="15%">Started</th>
+            <th width="10%">Page</th>
+            <th width="25%">Progress</th>
+        </thead>
+        <tbody>
+            {% for book in books %}
+                <tr>
+                    <td class="left-align"><a href="/book?book_id={{ book['id'] }}" class="black"><strong>{{ book["title"] }}</stong></a></td>
+                    <td>{{ book["author"] }}</td>
+                    {% if book["start_date"] %}
+                        <td>{{ book["start_date"] }}</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>{{ book["page"] }} / {{ book["pages"] }}</td>
+                    {% if book["start_date"] %}
+                        <td>
+                            <div class="progress progress-bar-striped bg-secondary">
+                              <div class="progress-bar" role="progressbar" style="width: {{ book['progress'] }}%" aria-valuenow="{{ book['progress'] }}" aria-valuemin="0" aria-valuemax="100">{{ book["progress"] }}%</div>
+                            </div>
+                        </td>
+                    {% else %}
+                        <td>
+                            <div class="progress progress-bar-striped bg-secondary">
+                              <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuemin="0" aria-valuemax="100"><strong> &nbsp; Not started yet.</strong></div>
+                            </div>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            {% if books|length < 7 %}
+                {% for i in range(books|length,7) %}
+                    <tr><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}

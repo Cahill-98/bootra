@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+
+{% block navs %}
+    <li class="nav-item">
+      <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/history">History</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link" href="/add">Add Book</a>
+    </li>
+{% endblock %}
+
+
+{% block title %}
+    Add Book
+{% endblock %}
+
+
+{% block main %}
+    <br><br>
+    <div class="box">
+        <h1>Add Book</h1>
+        <p>Enter the ISBN of the book you want to add.</p>
+        <form action = "/add" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="isbn" placeholder="ISBN-13" type="text" maxlength="13">
+            </div>
+            Target Finish Date (Optional)
+            <small id="emailHelp" class="form-text text-muted">This can be changed later.</small>
+            <div class="form-group">
+                <input autocomplete="off" class="form-control" name="target" type="date" min="{{ today }}">
+            </div>
+            <button class="btn btn-primary btn-lg" type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}

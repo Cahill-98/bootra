@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+
+
+{% block navs %}
+    <li class="nav-item">
+      <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/history">History</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/add">Add Book</a>
+    </li>
+{% endblock %}
+
+
+{% block title %}
+    {{ book["title"] }}
+{% endblock %}
+
+
+{% block main %}
+    <div class="container-fluid px-0 pb-3 bg-light">
+        <table class="table">
+            <thead class="thead-dark">
+                <th class = "align-top" width="34%">Title: <h5>{{ book["title"] }}</h5></th>
+                <th class = "align-top" width="33%">Author: <h5>{{ book["author"] }}</h5></th>
+                {% if book["start_date"] %}
+                    <th class = "align-top" width="33%">Date-Started: <h5>{{ book["start_date"] }}</h5></th>
+                {% else %}
+                    <th class = "align-top" width="33%">Date-Started: <h5>Not Started</h5></th>
+                {% endif %}
+            </thead>
+        </table>
+
+    	<div class="row no-gutters">
+
+    		<div class="col-md-3">
+        			<img src="http://covers.openlibrary.org/b/isbn/{{ book['isbn'] }}-L.jpg" alt="Book Cover" class="rounded" width=230px>
+    		</div>
+
+    		<div class="col-md-9 pr-3">
+
+				<div class="row">
+					<div class="col-md-12">
+					    {% if not book["target_date"] %}
+        					<div class="alert alert-secondary" role="alert">
+                                <strong>Why not add a target date to get your suggested daily rate?</strong>
+        					</div>
+					    {% elif not book["start_date"] %}
+        					<div class="alert alert-secondary" role="alert">
+                                <form action="/book" method="POST">
+                                    Change your target date? &nbsp;
+                                    <input autocomplete="off" class="form-control" name="target" type="date" min="{{ dates['tomorrow'] }}" style="font-size: small;">
+                                    <button class="btn btn-primary btn-sm" type="submit" name="book_id" value="{{ book['id'] }}">Submit</button>
+                                </form>
+        					</div>
+					    {% elif rates["current"] >= rates["target"] %}
+        					<div class="alert alert-success" role="alert">
+                                <form action="/book" method="POST">
+                                    <strong>You are on target!</strong> &nbsp; Change your target date? &nbsp;
+                                    <input autocomplete="off" class="form-control" name="target" type="date" min="{{ dates['tomorrow'] }}" style="font-size: small;">
+                                    <button class="btn btn-primary btn-sm" type="submit" name="book_id" value="{{ book['id'] }}">Submit</button>
+                                </form>
+        					</div>
+					    {% else %}
+        					<div class="alert alert-danger" role="alert">
+                                <form action="/book" method="POST">
+                                    <strong>You are behind schedule!</strong> &nbsp; Change your target date? &nbsp;
+                                    <input autocomplete="off" class="form-control" name="target" type="date" min="{{ dates['tomorrow'] }}" style="font-size: small;">
+                                    <button class="btn btn-primary btn-sm" type="submit" name="book_id" value="{{ book['id'] }}">Submit</button>
+                                </form>
+        					</div>
+					    {% endif %}
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+
+					    {% if book["start_date"] %}
+    					    <div class="alert alert-info" role="alert">
+        				        <h6>At your current daily reading rate for this book of <span class="badge badge-pill badge-primary">{{ rates["current"]|round|int }} pages</span>, you will finish on <span class="badge badge-pill badge-warning">{{ dates["current"] }}</span>.</h6>
+                            </div>
+					    {% else %}
+        					<div class="alert alert-secondary" role="alert">
+                                <strong>Just update the page number after your first reading session to begin.</strong>
+        					</div>
+					    {% endif %}
+					</div>
+				</div>
+
+				<div class="row">
+                    <div class="col-md-12">
+
+                        {% if book["target_date"] %}
+                            <div class="alert alert-info" role="alert">
+                                <h6>You will need a daily reading rate of <span class="badge badge-pill badge-primary">{{ rates["target"]|round|int }} pages</span> in order to reach your target of <span class="badge badge-pill badge-warning">{{ book["target_date"] }}</span>.</h6>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info" role="alert">
+                                <form action="/book" method="POST">
+                                    <strong>Target date: &nbsp;</strong>
+                                    <input autocomplete="off" class="form-control" name="target" type="date" min="{{ dates['tomorrow'] }}" style="font-size: small;">
+                                    <button class="btn btn-primary btn-sm" type="submit" name="book_id" value="{{ book['id'] }}">Submit</button>
+                                </form>
+                            </div>
+                        {% endif %}
+					</div>
+				</div>
+
+				<div class="row">
+				    <div class="col-md-12">
+                        <div class="alert alert-info" role="alert">
+                            <h6>If you read ~<span class="badge badge-pill badge-secondary">15 mins</span> daily you will finish on <span class="badge badge-pill badge-warning">{{ dates["15min"] }}</span>.</h6>
+                            <h6>If you read ~<span class="badge badge-pill badge-secondary">30 mins</span> daily you will finish on <span class="badge badge-pill badge-warning">{{ dates["30min"] }}</span>.</h6>
+                            <h6>If you read ~<span class="badge badge-pill badge-secondary">1 hour</span> daily you will finsh on <span class="badge badge-pill badge-warning">{{ dates["1hour"] }}</span>.</h6>
+                        </div>
+				    </div>
+				</div>
+
+				<div class="row left-align">
+					<div class="col-auto">
+                 		<form action="/history" method="POST" class="form-inline">
+                        	<button class="btn btn-success" type="submit" name="book_id" value="{{ book['id'] }}">Complete</button>
+                        </form>
+					</div>
+					<div class="col-auto">
+                        <form action="/remove" method="POST">
+                            <button class="btn btn-danger" type="submit" name="book_id" value="{{ book['id'] }}">Remove</button>
+                        </form>
+					</div>
+					<div class="col-auto">
+                        <form action="/update" method="POST">
+                            <button class="btn btn-info" type="submit" name="book_id" value="{{ book['id'] }}">Update</button>
+                            <input autocomplete="off" name="page" placeholder="{{ book['page'] }} / {{ book['pages'] }}" type="number" min="1" max="{{ book['pages']-1 }}" style="width: 105px;">
+                        </form>
+					</div>
+
+                    {% if book["start_date"] %}
+                        <div class="col-md-5 align-self-center">
+                            <div class="progress progress-bar-striped bg-secondary">
+                                <div class="progress-bar" role="progressbar" style="width: {{ book['progress'] }}%" aria-valuenow="{{ book['progress'] }}" aria-valuemin="0" aria-valuemax="100">{{ book["progress"] }}%</div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="col-md-5 align-self-center">
+                            <div class="progress progress-bar-striped bg-secondary">
+                              <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuemin="0" aria-valuemax="100"><strong> &nbsp; Not started yet.</strong></div>
+                            </div>
+                        </div>
+                    {% endif %}
+				</div>
+			</div>
+	    </div>
+	</div>
+{% endblock %}

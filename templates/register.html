@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+
+{% block main %}
+    <br><br>
+    <div class="box">
+        <h1>Sign Up</h1>
+        <p>Create an account to get started.</p>
+        <br>
+        <form action="/register" method="post">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" maxlength="27">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="password" placeholder="Password" type="password" maxlength="27">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="confirmation" placeholder="Confirm Password" type="password">
+            </div>
+            <button class="btn btn-primary btn-lg" type="submit">Sign Up</button>
+        </form>
+    </div>
+{% endblock %}
