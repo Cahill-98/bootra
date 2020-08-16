@@ -32,19 +32,19 @@ Set target date and receive the daily page rate required to hit that target. Als
 
 ![Add book screenshot](/screenshots/add_book.png)
 
-Used to add new books to your bookshelf. A checksum is performed on the ISBN number to make sure it is valid. Book information and covers is looked up using the Open Library API.
+Used to add new books to your bookshelf. A checksum is performed on the ISBN number to make sure it is valid. Book information and covers are looked up using the Open Library API.
 
 ### History
 
 ![History screenshot](/screenshots/history.png)
 
-View a log of books read with their respective daily page rates starting with the most recently finished books at the top. Also get users lifetime stats for total books and pages and lifetime average daily pages.
+View a log of your books read with their respective daily page rates starting with the most recently finished books at the top. Also get users lifetime stats for total books and pages and lifetime average daily pages.
 
 ### Register and Login
 
 ![Login screenshot](/screenshots/login.png)
 
-Keeps user's personal libraries and progress separate within different accounts. Passwords hashed before stored.
+Keeps user's personal libraries and progress separate within different accounts. Passwords are hashed before stored.
 
 ### Database
 
