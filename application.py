@@ -100,7 +100,7 @@ def history():
             return redirect(url_for("book", book_id=book_id))
 
         current_to_history(book)
-        flash("Congratulations! You have just completed " + book["title"] + ".")
+        flash(f"Congratulations! You have just completed {book["title"]}.")
         return redirect("/")
 
     # GET method
