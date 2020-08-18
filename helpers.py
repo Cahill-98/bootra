@@ -133,10 +133,10 @@ def select_from_current(book_id=None, isbn=None):
         Selects all books in current if no args
 
     Returns:
-        Dict of book data if book_id specified and book found
-        None if book_id specified and book not found
+        Dict of book data if book_id or isbn specified and book found
+        None if book_id or isbn specified and book not found
 
-        List of book data dicts if book_id not specified
+        List of book data dicts if book_id or isbn not specified
             (empty list if no books found)
             Books ordered by most to least recently started
     """
